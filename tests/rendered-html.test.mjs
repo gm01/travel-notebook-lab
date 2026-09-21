@@ -30,10 +30,11 @@ test("14 consecutive local days and nine full non-transfer days",()=>{
 });
 test("four selected stays match the route and supplied accommodation budget",()=>{
   assert.deepEqual(stays.map(s=>s.region),stops.map(s=>s.id));
-  assert.deepEqual(stays.map(s=>s.totalKRW),[154356,518043,388164,400000]);
-  assert.equal(lodgingTotalKRW,1460563);
+  assert.deepEqual(stays.map(s=>s.totalKRW),[154356,518043,388164,203688]);
+  assert.equal(lodgingTotalKRW,1264251);
   assert.ok(stays.every(s=>s.confirmed));
-  assert.match(stays.find(s=>s.region==="south").caveat,/최종 예약 확인 필요/);
+  assert.match(stays.find(s=>s.region==="south").note,/예약 확정.*조식 포함/);
+  assert.match(stays.find(s=>s.region==="south").mapQuery,/Four Points.*Ungasan/);
   assert.match(stays.find(s=>s.region==="west").official,/the-jangkar-canggu-guesthouse/);
   assert.match(stays.find(s=>s.region==="west").address,/Tanah Barak No.39C/);
   assert.match(stays.find(s=>s.region==="ubud").address,/Jalan Sri Wedari/);
@@ -48,9 +49,10 @@ test("renders the complete new notebook with honest booking and sync status",asy
   assert.match(html,/Bali, at our pace\./);
   assert.match(html,/GILI TRAWANGAN/);
   assert.equal((html.match(/class="day"/g)??[]).length,14);
-  assert.match(html,/1,460,563/);
+  assert.match(html,/1,264,251/);
   assert.match(html,/확정 숙박 계획/);
-  assert.match(html,/래디슨 블루 발리 울루와뚜/);
+  assert.match(html,/포 포인츠 바이 쉐라톤 발리, 웅아산/);
+  assert.doesNotMatch(html,/래디슨|radisson|1,460,563|400,000/i);
   assert.doesNotMatch(html,/날짜 넣어 검색|숙소 선택 후 확정|Renaissance|PinkCoco/);
   assert.match(html,/자동으로 바뀌지는 않습니다/);
   assert.doesNotMatch(html,/길리 에어|GILI AIR|SIDEMEN|시드멘|PNR|전자항공권/i);

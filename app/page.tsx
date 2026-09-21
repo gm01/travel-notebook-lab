@@ -76,12 +76,12 @@ export default function Home() {
       </section>
       <section className="section" id="stays">
         <Heading no="03" title="확정 숙박 계획" note="4곳 · 13박. 전달한 숙소표와 선택 내역을 반영했습니다." />
-        <div className="availability"><span>숙박비 합계</span><p><strong>{formatKRW(lodgingTotalKRW)}</strong> · 4구간 합산, 원화 기준. 래디슨은 일정상 확정이며 최종 예약 확인이 필요합니다.</p></div>
+        <div className="availability"><span>숙박비 합계</span><p><strong>{formatKRW(lodgingTotalKRW)}</strong> · 4구간 합산, 원화 기준. 포 포인츠 웅아산 2박 203,688원·조식 포함을 반영했습니다.</p></div>
         <div className="stay-grid selected-stays">
           {stays.map(stay => {
             const stop = stops.find(item => item.id === stay.region)!;
             return <article className="stay" key={stay.region}>
-              <p className="eyebrow">{stop.name} · 일정상 확정</p><h4>{stay.name}</h4>
+              <p className="eyebrow">{stop.name} · {stay.region === "south" ? "예약 확정" : "일정상 확정"}</p><h4>{stay.name}</h4>
               <p className="stay-dates">{stop.dates} · {stop.nights}박</p><p>{stay.note}</p>
               <dl className="stay-details"><div><dt>주소</dt><dd>{stay.address}</dd></div><div><dt>시설</dt><dd>{stay.facilities}</dd></div><div><dt>주변</dt><dd>{stay.nearby}</dd></div></dl>
               <div className="stay-price">{formatKRW(stay.totalKRW)}<small>{stay.caveat}</small></div>
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
       <section className="section budget-section" id="budget">
         <Heading no="06" title="두 사람의 예산" note="숙박은 제공 금액, 나머지는 계획용 범위입니다. 항공권·쇼핑·여행자보험 제외." />
-        <div className="budget-grid"><div><p className="eyebrow">13 NIGHTS · 2 PEOPLE</p><h3>13박 숙박비,<br />{formatKRW(lodgingTotalKRW)}</h3><p>전달한 4곳의 금액을 합산했습니다. 래디슨 최종 예약 후 금액을 다시 확인하세요. 숙박은 원화, 현지 예산은 루피아로 구분하며 환율 없이 합산하지 않습니다.</p><Link href={notionUrl}>노션 예산표에 실제 결제액 기록</Link></div>
+        <div className="budget-grid"><div><p className="eyebrow">13 NIGHTS · 2 PEOPLE</p><h3>13박 숙박비,<br />{formatKRW(lodgingTotalKRW)}</h3><p>전달한 4곳의 금액을 합산했습니다. 포 포인츠 웅아산은 2박 조식 포함 예약입니다. 숙박은 원화, 현지 예산은 루피아로 구분하며 환율 없이 합산하지 않습니다.</p><Link href={notionUrl}>노션 예산표에 실제 결제액 기록</Link></div>
           <dl className="budget-rows"><div><dt>숙박 13박</dt><dd>{formatKRW(lodgingTotalKRW)}</dd></div><div><dt>식사·카페</dt><dd>Rp7–12M</dd></div><div><dt>보트·기사·현지 이동</dt><dd>Rp7–11M</dd></div><div><dt>투어·스파·비치클럽</dt><dd>Rp5–10M</dd></div><div><dt>비자·관광세 2인</dt><dd>Rp1.3M</dd></div><div><dt>예비비</dt><dd>통화 환산 후 10–15%</dd></div></dl>
         </div>
       </section>
