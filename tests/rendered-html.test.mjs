@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { stops, itinerary, stays, booking } from "../app/trip-data.ts";
+import { stops, itinerary, stays, lodgingTotalKRW } from "../app/trip-data.ts";
 
 async function render() {
   const { default: worker } = await import("../dist/server/index.js");
@@ -28,15 +28,14 @@ test("14 consecutive local days and nine full non-transfer days",()=>{
   assert.equal(itinerary.filter(d=>d.kind==="FULL").length,9);
   assert.match(itinerary.at(-1).night,/23:05 7C5304/);
 });
-test("hotel searches use the correct regional dates and party size",()=>{
-  for(const stay of stays){
-    const stop=stops.find(s=>s.id===stay.region);
-    assert.ok(stop);
-    const u=new URL(stay.query?booking(stay.query,stop.checkin,stop.checkout):stay.official);
-    assert.equal(u.searchParams.get(stay.query?"checkin":"check_in"),stop.checkin);
-    assert.equal(u.searchParams.get(stay.query?"checkout":"check_out"),stop.checkout);
-    assert.equal(u.searchParams.get(stay.query?"group_adults":"adults"),"2");
-  }
+test("four selected stays match the route and supplied accommodation budget",()=>{
+  assert.deepEqual(stays.map(s=>s.region),stops.map(s=>s.id));
+  assert.deepEqual(stays.map(s=>s.totalKRW),[154356,518043,388164,400000]);
+  assert.equal(lodgingTotalKRW,1460563);
+  assert.ok(stays.every(s=>s.confirmed));
+  assert.match(stays.find(s=>s.region==="south").caveat,/최종 예약 확인 필요/);
+  assert.equal(stays.find(s=>s.region==="west").official,"");
+  assert.equal(stays.find(s=>s.region==="ubud").official,"");
 });
 test("renders the complete new notebook with honest booking and sync status",async()=>{
   const response=await render();
@@ -46,7 +45,10 @@ test("renders the complete new notebook with honest booking and sync status",asy
   assert.match(html,/Bali, at our pace\./);
   assert.match(html,/GILI TRAWANGAN/);
   assert.equal((html.match(/class="day"/g)??[]).length,14);
-  assert.match(html,/객실 재고와 최종 견적은 확인되지/);
+  assert.match(html,/1,460,563/);
+  assert.match(html,/확정 숙박 계획/);
+  assert.match(html,/래디슨 블루 발리 울루와뚜/);
+  assert.doesNotMatch(html,/날짜 넣어 검색|숙소 선택 후 확정|Renaissance|PinkCoco/);
   assert.match(html,/자동으로 바뀌지는 않습니다/);
   assert.doesNotMatch(html,/길리 에어|GILI AIR|SIDEMEN|시드멘|PNR|전자항공권/i);
   for(const id of ["route","stays","spots","checklist"]) assert.ok(html.includes('id="'+id+'"'));

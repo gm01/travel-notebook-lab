@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { stops, itinerary, stays, places, transfers, preparation, sources, booking, notionUrl, updatedAt } from "./trip-data";
+import { stops, itinerary, stays, places, transfers, preparation, sources, lodgingTotalKRW, formatKRW, notionUrl, updatedAt } from "./trip-data";
 
 function Link({href, children, className = ""}: {href: string; children: ReactNode; className?: string}) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span aria-hidden="true"> ↗</span></a>;
@@ -48,7 +48,7 @@ export default function Home() {
         <div className="intro-copy"><p className="eyebrow">21 OCT — 03 NOV 2026</p><h1>Bali, at our pace.</h1>
           <p className="intro-note">두 사람, 네 곳의 베이스. 13박의 발리.</p>
           <div className="trip-meta"><span>13박 14일</span><span>길리 트라왕안</span><span>인천 도착 11.04</span></div>
-          <p className="sync-note"><i aria-hidden="true" />노션 반영 {updatedAt} <span>· 수동 갱신</span></p>
+          <p className="sync-note"><i aria-hidden="true" />숙소·일정 반영 {updatedAt} <span>· 수동 갱신</span></p>
         </div>
         <figure className="intro-photo"><img src="./images/ubud-rice.jpg" alt="우붓의 계단식 논" width="640" height="360" /><figcaption>UBUD, BALI</figcaption></figure>
       </section>
@@ -58,7 +58,7 @@ export default function Home() {
           <h2>{stop.name}</h2><p>{stop.dates}</p><small>{stop.full}</small>
         </a>)}
       </div>
-      <div className="route-caption"><span>4 + 4 + 3 + 2 = 13박</span><span>숙박 순서 확정 · 세부 장소와 숙소는 후보</span></div>
+      <div className="route-caption"><span>4 + 4 + 3 + 2 = 13박</span><span>숙소 4곳 선택 완료 · 식당·투어는 후보</span></div>
       <section className="section" id="route">
         <Heading no="01" title="날짜별 일정" note="이동일은 여유롭게. FULL인 날은 메인 일정 한두 개만." />
         {stops.map((stop,index) => <div className={"itinerary-group "+stop.accent} id={"days-"+stop.id} key={stop.id}>
@@ -75,14 +75,20 @@ export default function Home() {
         <div className="notice"><strong>10/29 본섬 복귀 → 귀국 전 5박 확보</strong><p>왕복 승·하선 항구가 달라질 수 있으니 두 구간을 각각 확인하세요. 보트 체크인은 60분 전, 출항 48–72시간 전과 당일에는 보트사 공지와 <Link href="https://maritim.bmkg.go.id/">BMKG 해상 예보</Link>를 확인합니다.</p></div>
       </section>
       <section className="section" id="stays">
-        <Heading no="03" title="머무를 곳" note="성인 2명 · 객실 1개. 노션 후보를 우선 반영했습니다." />
-        <div className="availability"><span>예약 전 확인</span><p>현재 날짜별 객실 재고와 최종 견적은 확인되지 않았습니다. 노션의 가격은 과거 메모이며, 아래 링크에서 새 날짜의 총액·취소 조건을 확인하세요.</p></div>
-        {stops.map(stop=><div className="stay-group" key={stop.id}><div className="group-title"><h3>{stop.name}</h3><p>{stop.dates} · {stop.nights}박</p></div><div className="stay-grid">
-          {stays.filter(stay=>stay.region===stop.id).map(stay=><article className="stay" key={stay.name}><p className="eyebrow">{stay.tag}</p><h4>{stay.name}</h4><p>{stay.note}</p><div className="stay-price">{stay.price}<small>{stay.caveat}</small></div><div className="card-links">
-            {stay.query ? <><Link href={booking(stay.query,stop.checkin,stop.checkout)}>날짜 넣어 검색</Link><Link href={stay.official}>숙소 정보</Link></> : <Link href={stay.official}>날짜 넣어 보기</Link>}
-          </div></article>)}
-        </div></div>)}
-        <p className="footnote">짱구·스미냑 4박은 한 숙소에 머무는 안입니다. 첫날 자정 이후 입실 안내, 마지막 날 데이유즈는 예약 전에 함께 확인하세요.</p>
+        <Heading no="03" title="확정 숙박 계획" note="4곳 · 13박. 전달한 숙소표와 선택 내역을 반영했습니다." />
+        <div className="availability"><span>숙박비 합계</span><p><strong>{formatKRW(lodgingTotalKRW)}</strong> · 4구간 합산, 원화 기준. 래디슨은 일정상 확정이며 최종 예약 확인이 필요합니다.</p></div>
+        <div className="stay-grid selected-stays">
+          {stays.map(stay => {
+            const stop = stops.find(item => item.id === stay.region)!;
+            return <article className="stay" key={stay.region}>
+              <p className="eyebrow">{stop.name} · 일정상 확정</p><h4>{stay.name}</h4>
+              <p className="stay-dates">{stop.dates} · {stop.nights}박</p><p>{stay.note}</p>
+              <div className="stay-price">{formatKRW(stay.totalKRW)}<small>{stay.caveat}</small></div>
+              {stay.official && <div className="card-links"><Link href={stay.official}>공식 숙소 안내</Link></div>}
+            </article>;
+          })}
+        </div>
+        <p className="footnote">숙소명·금액은 제공 내역 기준입니다. 짱구와 우붓의 상세 주소는 미등록이며, 예약번호·호스트 연락처는 표시하지 않습니다. 추가 비용·조식·취소 조건은 예약 원본을 확인하세요.</p>
       </section>
       <section className="section" id="spots">
         <Heading no="04" title="먹고, 보고, 쉬기" note="노션의 우선 후보 + 새 동선. 공식 확인 항목과 방문 전 확인할 후보를 구분했습니다." />
@@ -100,13 +106,13 @@ export default function Home() {
         </div></div>
       </section>
       <section className="section budget-section" id="budget">
-        <Heading no="06" title="두 사람의 예산" note="확정 견적이 아닌 계획용 예산. 항공권·쇼핑·여행자보험 제외." />
-        <div className="budget-grid"><div><p className="eyebrow">13 NIGHTS · 2 PEOPLE</p><h3>숙소부터 정하고,<br />나머지는 여유 있게.</h3><p>숙박 요금이 달라져 이전 추천 조합 합계는 사용하지 않습니다. 비치클럽 크레딧으로 결제한 식사는 식비와 중복 계산하지 마세요.</p><Link href={notionUrl}>노션 예산표에 실제 결제액 기록</Link></div>
-          <dl className="budget-rows"><div><dt>숙박 13박</dt><dd>숙소 선택 후 확정</dd></div><div><dt>식사·카페</dt><dd>Rp7–12M</dd></div><div><dt>보트·기사·현지 이동</dt><dd>Rp7–11M</dd></div><div><dt>투어·스파·비치클럽</dt><dd>Rp5–10M</dd></div><div><dt>비자·관광세 2인</dt><dd>Rp1.3M</dd></div><div><dt>예비비</dt><dd>위 합계의 10–15%</dd></div></dl>
+        <Heading no="06" title="두 사람의 예산" note="숙박은 제공 금액, 나머지는 계획용 범위입니다. 항공권·쇼핑·여행자보험 제외." />
+        <div className="budget-grid"><div><p className="eyebrow">13 NIGHTS · 2 PEOPLE</p><h3>13박 숙박비,<br />{formatKRW(lodgingTotalKRW)}</h3><p>전달한 4곳의 금액을 합산했습니다. 래디슨 최종 예약 후 금액을 다시 확인하세요. 숙박은 원화, 현지 예산은 루피아로 구분하며 환율 없이 합산하지 않습니다.</p><Link href={notionUrl}>노션 예산표에 실제 결제액 기록</Link></div>
+          <dl className="budget-rows"><div><dt>숙박 13박</dt><dd>{formatKRW(lodgingTotalKRW)}</dd></div><div><dt>식사·카페</dt><dd>Rp7–12M</dd></div><div><dt>보트·기사·현지 이동</dt><dd>Rp7–11M</dd></div><div><dt>투어·스파·비치클럽</dt><dd>Rp5–10M</dd></div><div><dt>비자·관광세 2인</dt><dd>Rp1.3M</dd></div><div><dt>예비비</dt><dd>통화 환산 후 10–15%</dd></div></dl>
         </div>
       </section>
       <section className="source-section" aria-label="정보 출처">
-        <div><p className="eyebrow">NOTEBOOK & SOURCES</p><h2>같은 여행, 하나의 기준.</h2><p>이번 일정과 후보는 노션을 바탕으로 {updatedAt}에 반영했습니다. 노션을 수정해도 사이트가 자동으로 바뀌지는 않습니다.</p><Link href={notionUrl} className="notion-button">여행 노션으로</Link></div>
+        <div><p className="eyebrow">NOTEBOOK & SOURCES</p><h2>같은 여행, 하나의 기준.</h2><p>숙소·일정은 {updatedAt}에 전달한 선택 내역을 반영했습니다. 기존 장소·입국 정보는 09.07 조사 기준이며, 폰테·래디슨 공식 안내는 09.21 확인했습니다. 노션을 수정해도 사이트가 자동으로 바뀌지는 않습니다.</p><Link href={notionUrl} className="notion-button">여행 노션으로</Link></div>
         <div className="source-links">{sources.map(source=><Link key={source.url} href={source.url}>{source.label}</Link>)}</div>
       </section>
       <footer><span>BALI / 2026</span><p>10.21 — 11.03 · 인천 도착 11.04</p><button type="button" onClick={()=>window.print()}>수첩 인쇄 ↗</button><small>사진: <Link href="https://unsplash.com/photos/rice-terraces-jN9JnZ-SyVc">Radoslav Bali / Unsplash</Link></small></footer>

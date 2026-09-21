@@ -101,6 +101,8 @@ nav a:hover { color: var(--accent); }
 .group-title h3 { font-size: 21px; font-weight: 600; }
 .group-title p,.group-title > span { color: var(--muted); font-size: 13px; }
 .stay-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.selected-stays { grid-template-columns: repeat(2,minmax(0,1fr)); margin-top: 22px; }
+.stay .stay-dates { color: var(--accent); font-size: 14px; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
 .stay { padding: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; }
 .stay h4 { font-size: 21px; font-weight: 600; margin: 13px 0; }
 .stay > p:not(.eyebrow) { font-size: 16px; color: var(--muted); }
