@@ -7,7 +7,7 @@ const projectRoot = process.cwd();
 export default defineConfig({
   root: resolve(projectRoot, "pages-src"),
   publicDir: resolve(projectRoot, "public"),
-  base: "/bali-between-us/",
+  base: "/travel-notebook-lab/",
   plugins: [react()],
   css: {
     postcss: resolve(projectRoot, "postcss.config.mjs"),
