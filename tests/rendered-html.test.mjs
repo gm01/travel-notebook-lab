@@ -34,7 +34,10 @@ test("four selected stays match the route and supplied accommodation budget",()=
   assert.equal(lodgingTotalKRW,1460563);
   assert.ok(stays.every(s=>s.confirmed));
   assert.match(stays.find(s=>s.region==="south").caveat,/최종 예약 확인 필요/);
-  assert.equal(stays.find(s=>s.region==="west").official,"");
+  assert.match(stays.find(s=>s.region==="west").official,/the-jangkar-canggu-guesthouse/);
+  assert.match(stays.find(s=>s.region==="west").address,/Tanah Barak No.39C/);
+  assert.match(stays.find(s=>s.region==="ubud").address,/Jalan Sri Wedari/);
+  assert.match(stays.find(s=>s.region==="ubud").facilities,/호스트에게 확인/);
   assert.equal(stays.find(s=>s.region==="ubud").official,"");
 });
 test("renders the complete new notebook with honest booking and sync status",async()=>{

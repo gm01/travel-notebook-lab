@@ -4,40 +4,72 @@ export const booking = (name: string, checkin: string, checkout: string) =>
   "https://www.booking.com/searchresults.ko.html?" + new URLSearchParams({ss: name, checkin, checkout, group_adults: "2", no_rooms: "1", group_children: "0", selected_currency: "KRW"}).toString();
 
 export const stops = [
-  {id:"west", name:"짱구 · 스미냑", en:"CANGGU / SEMINYAK", checkin:"2026-10-21", checkout:"2026-10-25", dates:"10.21 — 10.25", nights:4, full:"온전한 3일", note:"짱구 호텔 4박. 서핑·브런치, 스미냑은 하루 외출.", accent:"west"},
+  {id:"west", name:"짱구 · 스미냑", en:"CANGGU / SEMINYAK", checkin:"2026-10-21", checkout:"2026-10-25", dates:"10.21 — 10.25", nights:4, full:"온전한 3일", note:"The Jangkar 4박. 타나바락·에코비치 중심, 스미냑은 하루 외출.", accent:"west"},
   {id:"gili", name:"길리 트라왕안", en:"GILI TRAWANGAN", checkin:"2026-10-25", checkout:"2026-10-29", dates:"10.25 — 10.29", nights:4, full:"온전한 3일", note:"폰테 빌라 4박. 스노클링·자전거·숙소 휴식.", accent:"gili"},
-  {id:"ubud", name:"우붓", en:"UBUD", checkin:"2026-10-29", checkout:"2026-11-01", dates:"10.29 — 11.01", nights:3, full:"온전한 2일", note:"우붓 에어비앤비 3박. 북쪽 논 전망과 시내를 하루씩.", accent:"ubud"},
+  {id:"ubud", name:"우붓", en:"UBUD", checkin:"2026-10-29", checkout:"2026-11-01", dates:"10.29 — 11.01", nights:3, full:"온전한 2일", note:"Sri Wedari 거리권 3박. 북쪽 논 전망과 시내를 하루씩.", accent:"ubud"},
   {id:"south", name:"울루와뚜", en:"ULUWATU", checkin:"2026-11-01", checkout:"2026-11-03", dates:"11.01 — 11.03", nights:2, full:"1일 + 귀국일 낮", note:"래디슨 블루 2박 선택. 리조트 휴식 후 11/3 저녁 공항으로.", accent:"south"},
 ];
 
 export const itinerary = [
-  {date:"10.21", weekday:"수", region:"west", kind:"도착", title:"밤 도착, 숙소로 바로", am:"12:40 인천 T1 도착 · 15:40 7C5303 출발", pm:"21:45 발리 도착 · 입국과 수하물 수령", night:"예약 차량으로 확정한 짱구 호텔 이동", note:"입국 1–2시간 + 차량 45–90분 계획. 자정 이후 체크인 가능성이 있어 10/21부터 예약하고 늦은 도착을 알리기."},
-  {date:"10.22", weekday:"목", region:"west", kind:"FULL", title:"늦은 브런치와 첫 선셋", am:"늦잠 · Sensorium 브런치", pm:"바투볼롱·에코비치 산책 · 카페", night:"짱구 호텔 휴식 또는 가까운 해변 저녁", note:"도착 다음 날은 회복 위주. Sensorium 대기 시 인근 카페로."},
-  {date:"10.23", weekday:"금", region:"west", kind:"FULL", title:"서핑하고, 핀즈에서 쉬기", am:"강사와 초보 서핑 · 파도에 맞춰 시간 확정", pm:"샤워·점심 후 FINNS Beach Club", night:"핀즈 선셋 · 숙소로 복귀", note:"서핑은 강습 해변과 장비·보험 포함 여부 확인. 핀즈 무료 입장과 유료 데이베드 조건은 다름."},
+  {date:"10.21", weekday:"수", region:"west", kind:"도착", title:"밤 도착, 숙소로 바로", am:"12:40 인천 T1 도착 · 15:40 7C5303 출발", pm:"21:45 발리 도착 · 입국과 수하물 수령", night:"예약 차량으로 The Jangkar 이동 · 야간 체크인", note:"입국 1–2시간 + 차량 45–90분 계획. 숙소 체크인 안내는 24시까지이므로 자정 이후 입실 승인을 반드시 미리 받고 10/21 예약 유지."},
+  {date:"10.22", weekday:"목", region:"west", kind:"FULL", title:"늦은 브런치와 첫 선셋", am:"늦잠 · Sensorium 브런치", pm:"The Jangkar 수영장 휴식 → 에코비치 산책", night:"La Baracca Canggu 저녁 → 숙소 복귀", note:"Sensorium은 Batu Mejan 거리, La Baracca는 숙소와 같은 Tanah Barak No.51. 도착 다음 날은 이 일대만, 브런치 대기 시 I Am Vegan Babe로."},
+  {date:"10.23", weekday:"금", region:"west", kind:"FULL", title:"서핑하고, 핀즈에서 쉬기", am:"I Am Vegan Babe 아침 · 강사와 초보 서핑", pm:"숙소에서 샤워·휴식 → 차량으로 베라와 FINNS", night:"핀즈 선셋 · 숙소로 복귀", note:"서핑 시간·해변은 강사와 조수에 맞춰 확정. FINNS는 베라와 쪽 별도 이동으로 묶고, 숙소까지 해변 도보 이동으로 잡지 않기."},
   {date:"10.24", weekday:"토", region:"west", kind:"FULL", title:"스미냑을 걷는 하루", am:"스미냑 숍·카페 산책", pm:"스미냑 마사지 · 카페 · 여행용 소액 현금 준비", night:"KU DE TA 선셋 · 길리행 짐 정리", note:"짱구↔스미냑은 편도 약 30–90분 계획. 다음 날 출항 때문에 밤 일정을 짧게."},
   {date:"10.25", weekday:"일", region:"gili", kind:"이동", title:"길리 트라왕안으로", am:"예약 픽업 → 세랑안 항구 · 출항 60분 전 도착", pm:"오전 패스트보트 · 폰테 빌라에 짐 맡기기·체크인", night:"폰테 빌라 휴식 → 마을 산책 · 레지나 피제리아", note:"남부 숙소는 세랑안 출항 우선 비교. 실제 시간은 바우처 기준, 문에서 문까지 약 5–7시간을 확보."},
   {date:"10.26", weekday:"월", region:"gili", kind:"FULL", title:"거북이를 만나는 오전", am:"08:00 전후 3섬 스노클링 · 주나투어 후보", pm:"점심 · 폰테 빌라 휴식 · 낮잠", night:"서쪽 해변 선셋 · Pacifica 후보", note:"주나투어 집결지는 예약 전에 확인. 가이드·구명조끼 포함, 거북이와 산호를 만지지 않기."},
   {date:"10.27", weekday:"화", region:"gili", kind:"FULL", title:"자전거로 섬 한 바퀴", am:"자전거 대여 · 동북쪽 해변 산책", pm:"키라키라 올데이 · 숙소 휴식", night:"CLOUD9 외부 방문 또는 폰테 빌라 근처 저녁", note:"모래 구간은 끌고 걷기. 북동쪽 거북이 포인트도 조류와 보트 통로 확인 후 입수."},
   {date:"10.28", weekday:"수", region:"gili", kind:"FULL", title:"빈칸으로 남긴 섬의 하루", am:"날씨가 좋으면 추가 스노클링 또는 늦잠", pm:"마사지 · 한식 또는 로컬 식사", night:"마지막 노을 · 다음 날 보트 재확인", note:"10/26 바다가 좋지 않았다면 오늘로 투어를 옮길 수 있도록 여유를 남김."},
-  {date:"10.29", weekday:"목", region:"ubud", kind:"이동", title:"길리에서 우붓으로", am:"오전 보트 → 파당바이 항구", pm:"예약 차량으로 우붓 · 약 1.5–2.5시간", night:"에어비앤비 입실 · 가까운 식당에서 저녁", note:"폰테 빌라 체크아웃 후 항구 이동. 전체 5–7시간 계획, 에어비앤비 호스트에게 예상 도착을 알리고 관광 예약은 비우기."},
-  {date:"10.30", weekday:"금", region:"ubud", kind:"FULL", title:"논 전망과 긴 휴식", am:"크레타야 우붓 · 논 전망과 수영", pm:"우붓 에어비앤비 휴식 · 가까운 스파 한 곳", night:"피손 우붓 · 투키즈 코코넛 디저트", note:"크레타야와 뜨갈랄랑을 북쪽 외출로 묶기. 에어비앤비 주소 확인 후 기사 픽업·스파 지점을 정하고 동부 투어는 추가하지 않기."},
-  {date:"10.31", weekday:"토", region:"ubud", kind:"FULL", title:"몽키포레스트와 시내 산책", am:"09:00 몽키포레스트", pm:"우붓 시장 · 라탄백·작은 기념품 · 카페", night:"와룽 부 루스 또는 가라시 · 조용한 저녁", note:"사라스와티 의식일. 사원·소규모 업장 운영과 차량 동선 확인. 바투르산은 이 오전 일정을 대체할 때만."},
+  {date:"10.29", weekday:"목", region:"ubud", kind:"이동", title:"길리에서 우붓으로", am:"오전 보트 → 파당바이 항구", pm:"예약 차량으로 우붓 · 약 1.5–2.5시간", night:"Sri Wedari 숙소 입실 · 근처 저녁·생수 구입", note:"폰테 체크아웃 후 항구 이동. 전체 5–7시간 계획. 호스트에게 정확한 지도 핀·차량 진입·열쇠 수령을 확인하고, 도착일 식당·스파는 예약하지 않기."},
+  {date:"10.30", weekday:"금", region:"ubud", kind:"FULL", title:"논 전망과 긴 휴식", am:"크레타야 우붓 · 논 전망과 수영", pm:"Sri Wedari 복귀 · Mahayoga Spa 후보 · 숙소 휴식", night:"Keenandra 또는 숙소 가까운 식당에서 저녁", note:"크레타야·뜨갈랄랑은 북쪽 외출로 묶기. Mahayoga·Keenandra는 Sri Wedari No.777: 숙소 핀과 비교 후 선택, 멀면 호스트 추천 스파로 대체."},
+  {date:"10.31", weekday:"토", region:"ubud", kind:"FULL", title:"몽키포레스트와 시내 산책", am:"09:00 몽키포레스트", pm:"Pison 점심 → 우붓 시장·왕궁 주변 → Tukies", night:"Hujan Locale 저녁 후보 → Sri Wedari 숙소 복귀", note:"몽키포레스트에서 시내로 북상하는 하루. Hujan은 Sri Wedari No.5, 예약 권장. 사라스와티 의식일이라 운영·교통 확인, 숙소까지 도보 가능 여부는 핀 확인 후 결정."},
   {date:"11.01", weekday:"일", region:"south", kind:"이동", title:"우붓에서 남쪽 절벽으로", am:"조식 · 10:30 전후 체크아웃", pm:"차량 약 2.5–4시간 · 래디슨 블루 15:00 체크인", night:"래디슨 블루 수영장 · 호텔 또는 근처 디너", note:"래디슨 공식 체크인은 15:00. 일찍 도착하면 짐 보관을 문의하고 객실 입실은 보장하지 않기."},
   {date:"11.02", weekday:"월", region:"south", kind:"FULL", title:"바다와 케착 공연", am:"래디슨 블루 수영장 · 파당파당 해변 선택", pm:"호텔에서 씻고 휴식 · 16:00 사원 도착 목표", night:"18:00 케착 공연 후보 · 가까운 곳에서 저녁", note:"리조트 시간을 확보해 Sundays는 기본 일정에서 제외. 사원 이동은 교통을 감안하고 공연 예약 회차를 재확인."},
   {date:"11.03", weekday:"화", region:"south", kind:"귀국", title:"마지막 수영, 23:05 비행", am:"호텔 조식 · 수영 · 12:00 기본 체크아웃", pm:"짐 보관 후 근처 마사지·카페 · 16:30–17:00 이른 저녁", night:"18:00–18:30 차량 출발 → 20:00 DPS → 23:05 7C5304", note:"12시 이후 객실 사용·수영·샤워는 자동 포함되지 않음. 레이트 체크아웃·데이유즈는 호텔 확인 후 추가. 인천 도착 11/4 07:10."},
 ];
 
 export const stays = [
-  {region:"west", name:"짱구 호텔", confirmed:true, totalKRW:154356, note:"10/21부터 4박 확정. 짱구를 거점으로 서핑·카페, 스미냑은 하루 외출로 묶습니다.", caveat:"정확한 호텔명·주소 확인 필요. 자정 이후 체크인 안내를 받아두세요.", official:""},
-  {region:"gili", name:"폰테 빌라 · Ponte Villas", confirmed:true, totalKRW:518043, note:"10/25부터 4박 확정. 도착일은 숙소와 마을 중심, 서쪽 선셋은 외출 일정으로 분리합니다.", caveat:"항구에서 숙소까지 짐 이동을 문의하세요. 객실 유형·조식·체크인 시간은 예약 내역 기준.", official:"https://pontevillas.com/"},
-  {region:"ubud", name:"우붓 에어비앤비", confirmed:true, totalKRW:388164, note:"10/29부터 3박 확정. 북쪽 논 전망 하루와 시내 산책 하루로 나눕니다.", caveat:"정확한 숙소 링크·주소와 호스트 입실 안내 확인 필요. 도보권이나 수영장 유무는 미확인.", official:""},
-  {region:"south", name:"래디슨 블루 발리 울루와뚜", confirmed:true, totalKRW:400000, note:"11/1부터 2박 일정상 확정. 비치클럽을 추가하기보다 리조트 수영장과 가까운 해변 위주로 쉽니다.", caveat:"최종 예약 확인 필요. 공식 체크인 15:00·체크아웃 12:00, 예약 조건 우선.", official:"https://www.radissonhotels.com/en-us/hotels/radisson-blu-bali-uluwatu"},
+  {region:"west", name:"The Jangkar Canggu Guesthouse", confirmed:true, totalKRW:154356,
+    address:"Jl. Tanah Barak No.39C, Canggu, 80352, Indonesia", mapQuery:"The Jangkar Canggu Guesthouse Tanah Barak 39C",
+    facilities:"야외 수영장 · 무료 Wi-Fi · 에어컨 · 전용 욕실 · 무료 주차 · 유료 셔틀",
+    nearby:"같은 Tanah Barak 거리: I Am Vegan Babe No.49, La Baracca No.51. 편의점·세탁소 위치는 체크인 때 확인.",
+    note:"10/21부터 4박. 숙소 주변 브런치와 에코비치, 스미냑 외출을 분리해 이동을 줄입니다.",
+    caveat:"Booking 안내: 체크인 14:00–24:00·체크아웃 07:00–12:00. 자정 이후 도착은 사전 승인 필수. 객실별 시설·조식 포함은 예약 원본 기준.",
+    official:"https://www.booking.com/hotel/id/the-jangkar-canggu-guesthouse.ko.html"},
+  {region:"gili", name:"폰테 빌라 · Ponte Villas", confirmed:true, totalKRW:518043,
+    address:"Gili Trawangan, North Lombok, Indonesia", mapQuery:"Ponte Villas Gili Trawangan",
+    facilities:"리셉션 운영 · 보트·픽업 연결 문의 가능. 전용 풀·조식은 예약 객실에 따라 확인.",
+    nearby:"도착일은 마을 식사, 서쪽 선셋 바는 별도 외출로 구성. 항구↔숙소 짐 이동은 리셉션 문의.",
+    note:"10/25부터 4박. 스노클링과 자전거 외출 사이에 숙소에서 쉬는 시간을 확보합니다.",
+    caveat:"체크인·체크아웃 시간, 객실 유형과 추가 서비스 요금은 예약 내역 기준.",
+    official:"https://pontevillas.com/"},
+  {region:"ubud", name:"우붓 에어비앤비 · Sri Wedari", confirmed:true, totalKRW:388164,
+    address:"Jalan Sri Wedari, Kecamatan Ubud, Bali 80571, Indonesia", mapQuery:"Jalan Sri Wedari Ubud Bali",
+    facilities:"주소만 확인됨. 수영장·주방·세탁기·에어컨·조식·주차 여부는 호스트에게 확인.",
+    nearby:"Sri Wedari 거리권: Hujan Locale No.5, Mahayoga Spa·Keenandra No.777. 도로 구간이 길어 숙소 바로 옆이라는 뜻은 아닙니다.",
+    note:"10/29부터 3박. 북쪽 논 전망 하루, 몽키포레스트·시내 하루로 나눕니다.",
+    caveat:"건물 번호·숙소 핀이 없어 도보 시간 산정 불가. 지도는 거리 검색 결과이며 숙소 핀이 아닙니다. 기사에게 호스트의 정확한 핀을 전달하세요.",
+    official:""},
+  {region:"south", name:"래디슨 블루 발리 울루와뚜", confirmed:true, totalKRW:400000,
+    address:"Jalan Pemutih – Labuan Sait, Uluwatu, Bali, Indonesia", mapQuery:"Radisson Blu Bali Uluwatu",
+    facilities:"야외 수영장 · 스파 · 피트니스 · 호텔 식당 · 짐 보관 · 공항 셔틀(요금 확인)",
+    nearby:"빙인·파당파당 지역 거점. 해변은 계단·경사가 있어 차량 접근과 당일 조수 확인.",
+    note:"11/1부터 2박 일정상 확정. 비치클럽을 추가하기보다 리조트 수영장과 가까운 해변 위주로 쉽니다.",
+    caveat:"최종 예약 확인 필요. 공식 체크인 15:00·체크아웃 12:00, 예약 조건 우선.",
+    official:"https://www.radissonhotels.com/en-us/hotels/radisson-blu-bali-uluwatu"},
 ];
+export const mapSearch = (query: string) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
 export const lodgingTotalKRW = stays.reduce((sum, stay) => sum + stay.totalKRW, 0);
 export const confirmedLodgingKRW = stays.filter(stay => stay.confirmed).reduce((sum, stay) => sum + stay.totalKRW, 0);
 export const formatKRW = (amount: number) => amount.toLocaleString("ko-KR") + "원";
 
 export const places = [
+  {region:"west",name:"I Am Vegan Babe",category:"숙소 주변 · 브런치",status:"공식 확인 09.21 · 07:00–22:00",note:"Tanah Barak No.49. 식물성 브런치·커피, 10/23 서핑 전 아침이나 Sensorium 대기 시 대안.",href:"https://iamveganbabe.com/"},
+  {region:"west",name:"La Baracca Canggu",category:"숙소 주변 · 저녁",status:"공식 지점 안내 확인 09.21",note:"Tanah Barak No.51. The Jangkar와 같은 거리의 이탈리안 식당. 10/22 저녁 후보, Canggu 지점으로 확인.",href:"https://linktr.ee/labaraccabali"},
+  {region:"west",name:"편의점·세탁소 찾기",category:"생활 편의",status:"지도 검색 · 개별 지점 미확인",note:"10/22 낮에 생수·간식 구입과 세탁 마감시간 확인. 호텔 골목 입구를 픽업 지점으로 쓸 수 있는지도 리셉션에 문의.",href:mapSearch("convenience store laundry near The Jangkar Canggu Guesthouse")},
+  {region:"ubud",name:"Hujan Locale",category:"Sri Wedari · 저녁",status:"공식 주소 확인 09.21",note:"Sri Wedari No.5. 현대 인도네시아 요리, 10/31 시내 산책 후 저녁 후보. 예약 권장, 숙소까지 거리는 정확한 핀 확인 후.",href:"https://hujanlocale.com/"},
+  {region:"ubud",name:"Mahayoga Spa · Keenandra",category:"Sri Wedari · 스파·식사",status:"공식 주소 확인 09.21",note:"Sri Wedari No.777. 10/30 북쪽 관광 후 후보. 외부 손님 이용·시간·가격을 문의하고 숙소 핀과 가까운지 비교.",href:"https://mahayogaubud.com/"},
+  {region:"ubud",name:"Kimia Farma Ubud Raya",category:"생활 편의 · 약국",status:"공식 지점 확인 09.21",note:"Jl. Raya Ubud, Taman Kaja. 공식 안내 08:00–23:00. 필요한 일반 용품은 시내 방문 때 구입, 숙소 바로 옆 지점은 아님.",href:"https://www.kimiafarmaapotek.co.id/outlets/"},
+
   {region:"west",name:"Sensorium",category:"브런치",status:"공식 메뉴 확인",note:"노션 우선 후보. 브런치 라멘·미소 팬케이크, 10/22 느린 아침에.",href:"https://www.sensoriumbali.co.id/menu"},
   {region:"west",name:"FINNS Beach Club",category:"비치클럽",status:"11:00–24:00",note:"성인 전용, 무료 입장 구역 운영. 데이베드 최소 주문은 별도. 10/23 오후.",href:"https://finnsbeachclub.com/"},
   {region:"west",name:"KU DE TA",category:"선셋 · 식사",status:"공식 예약 확인",note:"10/24 스미냑 선셋 후보. 좌석 종류·이벤트별 예약 조건 확인.",href:"https://kudeta.com/"},
@@ -53,7 +85,7 @@ export const places = [
   {region:"gili",name:"Turtle Point",category:"바다",status:"당일 조류 확인",note:"노션의 이른 오전 추천은 고정 안전시간이 아님. 현지 가이드와 조류·보트 동선을 확인.",href:"https://maps.app.goo.gl/RVNxfSmaLH1Rw8NX9"},
   {region:"ubud",name:"Cretya Ubud",category:"논 전망 · 수영",status:"07:00–21:00 · 18+",note:"공식 FDC Rp220k/인, 첫 음료 포함. 데이베드·이벤트 별도 조건. 10/30 오전.",href:"https://cretyaubud.com/en/cretya-ubud"},
   {region:"ubud",name:"Monkey Forest",category:"관광",status:"09:00–18:00 · Rp130k",note:"최종 입장 17:00. 10/31 09:00 방문, 음식과 소지품은 가방에.",href:"https://monkeyforestubud.com/visit/"},
-  {region:"ubud",name:"Pison Ubud",category:"식사 · 카페",status:"07:00–23:00",note:"노션 우선 후보. 하노만 거리의 논 전망 식당, 10/30 저녁에.",href:"https://pisonindonesia.com/pison-ubud/"},
+  {region:"ubud",name:"Pison Ubud",category:"식사 · 카페",status:"07:00–23:00",note:"노션 우선 후보. 하노만 거리의 논 전망 식당, 10/31 몽키포레스트 후 점심에.",href:"https://pisonindonesia.com/pison-ubud/"},
   {region:"ubud",name:"푸트리 스파",category:"마사지",status:"노션 후보 · 지점 확인",note:"그린타라·옌즈와 함께 비교해 하루 한 곳만. 숙소와 가까운 지점 우선.",href:"https://maps.app.goo.gl/CjN1e9gUPUNjgiYZ9"},
   {region:"ubud",name:"투키즈 코코넛",category:"디저트",status:"노션 후보",note:"시내 산책 뒤 코코넛 아이스크림. 10/30 또는 10/31에.",href:"https://maps.app.goo.gl/AdK7FnMt11j4cDaU9"},
   {region:"ubud",name:"와룽 부 루스",category:"로컬 식사",status:"노션 후보",note:"폭립 메모를 반영. 가라시·트로피칼 뷰도 노션에서 비교.",href:"https://maps.app.goo.gl/AT3jyH4U2RYWbDDf6"},
@@ -73,8 +105,8 @@ export const transfers = [
 
 export const preparation = [
   {id:"passport",title:"여권과 항공권 확인",detail:"여권 유효기간 6개월 이상 · 영문명 일치 · 예약 원본은 노션",when:"지금"},
-  {id:"stay-details",title:"숙소 예약 조건·주소 확인",detail:"짱구·우붓 주소, 폰테 객실 조건, 래디슨 예약 확정 여부 확인",when:"출발 전"},
-  {id:"late-arrival",title:"첫날 야간 체크인 연락",detail:"10/21 예약 유지 · 10/22 새벽 도착 가능성 전달",when:"예약할 때"},
+  {id:"stay-details",title:"숙소 예약 조건·주소 확인",detail:"The Jangkar 자정 이후 입실 · 우붓 정확한 핀·시설 · 폰테 객실 조건 · 래디슨 최종 예약",when:"출발 전"},
+  {id:"late-arrival",title:"첫날 야간 체크인 연락",detail:"The Jangkar 체크인 마감 24시 · 10/22 새벽 입실 사전 승인",when:"예약할 때"},
   {id:"boat",title:"길리 보트 두 구간 예약",detail:"10/25 길리 T행 · 10/29 파당바이행 · 픽업과 항구세 확인",when:"미리"},
   {id:"dinner",title:"투어·스파·케착 예약",detail:"10/26 스노클링 · 10/30 스파 · 11/2 케착",when:"미리"},
   {id:"visa",title:"e-VOA B1",detail:"공식 비자 수수료 Rp500k/인 · 30일 체류",when:"출발 전"},
@@ -86,6 +118,12 @@ export const preparation = [
 ];
 
 export const sources = [
+  {label:"The Jangkar 시설·이용수칙",url:"https://www.booking.com/hotel/id/the-jangkar-canggu-guesthouse.ko.html"},
+  {label:"I Am Vegan Babe",url:"https://iamveganbabe.com/"},
+  {label:"La Baracca 지점 안내",url:"https://linktr.ee/labaraccabali"},
+  {label:"Hujan Locale",url:"https://hujanlocale.com/"},
+  {label:"Mahayoga Spa·Keenandra",url:"https://mahayogaubud.com/"},
+
   {label:"폰테 빌라 · 09.21 확인",url:"https://pontevillas.com/"},
   {label:"래디슨 체크인·시설 · 09.21 확인",url:"https://www.radissonhotels.com/en-us/hotels/radisson-blu-bali-uluwatu"},
   {label:"보트 노선·체크인",url:"https://bluewater-express.com/schedules/"},

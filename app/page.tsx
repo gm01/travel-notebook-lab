@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { stops, itinerary, stays, places, transfers, preparation, sources, lodgingTotalKRW, formatKRW, notionUrl, updatedAt } from "./trip-data";
+import { stops, itinerary, stays, places, transfers, preparation, sources, lodgingTotalKRW, formatKRW, mapSearch, notionUrl, updatedAt } from "./trip-data";
 
 function Link({href, children, className = ""}: {href: string; children: ReactNode; className?: string}) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span aria-hidden="true"> ↗</span></a>;
@@ -83,15 +83,16 @@ export default function Home() {
             return <article className="stay" key={stay.region}>
               <p className="eyebrow">{stop.name} · 일정상 확정</p><h4>{stay.name}</h4>
               <p className="stay-dates">{stop.dates} · {stop.nights}박</p><p>{stay.note}</p>
+              <dl className="stay-details"><div><dt>주소</dt><dd>{stay.address}</dd></div><div><dt>시설</dt><dd>{stay.facilities}</dd></div><div><dt>주변</dt><dd>{stay.nearby}</dd></div></dl>
               <div className="stay-price">{formatKRW(stay.totalKRW)}<small>{stay.caveat}</small></div>
-              {stay.official && <div className="card-links"><Link href={stay.official}>공식 숙소 안내</Link></div>}
+              <div className="card-links"><Link href={mapSearch(stay.mapQuery)}>{stay.region === "ubud" ? "거리 위치 보기" : "숙소 지도"}</Link>{stay.official && <Link href={stay.official}>숙소 안내 · 시설</Link>}</div>
             </article>;
           })}
         </div>
-        <p className="footnote">숙소명·금액은 제공 내역 기준입니다. 짱구와 우붓의 상세 주소는 미등록이며, 예약번호·호스트 연락처는 표시하지 않습니다. 추가 비용·조식·취소 조건은 예약 원본을 확인하세요.</p>
+        <p className="footnote">숙소명·금액은 제공 내역 기준입니다. 우붓은 거리 주소만 있어 정확한 숙소 핀과 시설을 확인해야 합니다. 예약번호·호스트 연락처는 표시하지 않으며 추가 비용·조식·취소 조건은 예약 원본을 확인하세요.</p>
       </section>
       <section className="section" id="spots">
-        <Heading no="04" title="먹고, 보고, 쉬기" note="노션의 우선 후보 + 새 동선. 공식 확인 항목과 방문 전 확인할 후보를 구분했습니다." />
+        <Heading no="04" title="먹고, 보고, 쉬기" note="숙소 주변 식당·생활 편의와 기존 후보. 우붓은 거리권 후보로, 숙소 바로 옆이라는 뜻은 아닙니다." />
         {stops.map(stop=><div className="places-group" key={stop.id}><div className="group-title"><h3>{stop.name}</h3><span>{stop.dates}</span></div><div className="places-grid">
           {places.filter(place=>place.region===stop.id).map(place=><article className="place" key={place.name}><div className="place-meta"><span>{place.category}</span><small>{place.status}</small></div><h4>{place.name}</h4><p>{place.note}</p><Link href={place.href}>상세 · 지도</Link></article>)}
         </div></div>)}
@@ -112,7 +113,7 @@ export default function Home() {
         </div>
       </section>
       <section className="source-section" aria-label="정보 출처">
-        <div><p className="eyebrow">NOTEBOOK & SOURCES</p><h2>같은 여행, 하나의 기준.</h2><p>숙소·일정은 {updatedAt}에 전달한 선택 내역을 반영했습니다. 기존 장소·입국 정보는 09.07 조사 기준이며, 폰테·래디슨 공식 안내는 09.21 확인했습니다. 노션을 수정해도 사이트가 자동으로 바뀌지는 않습니다.</p><Link href={notionUrl} className="notion-button">여행 노션으로</Link></div>
+        <div><p className="eyebrow">NOTEBOOK & SOURCES</p><h2>같은 여행, 하나의 기준.</h2><p>숙소·일정은 {updatedAt}에 전달한 선택 내역을 반영했습니다. 숙소와 새 주변 후보는 09.21 확인, 기존 관광·입국 정보는 09.07 조사 기준입니다. 우붓 숙소 시설은 주소만으로 확인할 수 없습니다. 노션을 수정해도 사이트가 자동으로 바뀌지는 않습니다.</p><Link href={notionUrl} className="notion-button">여행 노션으로</Link></div>
         <div className="source-links">{sources.map(source=><Link key={source.url} href={source.url}>{source.label}</Link>)}</div>
       </section>
       <footer><span>BALI / 2026</span><p>10.21 — 11.03 · 인천 도착 11.04</p><button type="button" onClick={()=>window.print()}>수첩 인쇄 ↗</button><small>사진: <Link href="https://unsplash.com/photos/rice-terraces-jN9JnZ-SyVc">Radoslav Bali / Unsplash</Link></small></footer>
