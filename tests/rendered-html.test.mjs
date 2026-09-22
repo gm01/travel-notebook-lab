@@ -55,6 +55,7 @@ test("renders the complete new notebook with honest booking and sync status",asy
   assert.doesNotMatch(html,/래디슨|radisson|1,460,563|400,000/i);
   assert.doesNotMatch(html,/날짜 넣어 검색|숙소 선택 후 확정|Renaissance|PinkCoco/);
   assert.match(html,/자동으로 바뀌지는 않습니다/);
+  assert.doesNotMatch(html,/반영했습니다|메모를 반영|전달한 숙소표|전달한 선택 내역|합산했습니다|수동 갱신|노션 후보/);
   assert.doesNotMatch(html,/길리 에어|GILI AIR|SIDEMEN|시드멘|PNR|전자항공권/i);
   for(const id of ["route","stays","spots","checklist"]) assert.ok(html.includes('id="'+id+'"'));
 });
