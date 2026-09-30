@@ -1,4 +1,4 @@
-export const updatedAt = "2026.09.21";
+export const updatedAt = "2026.09.30";
 export const notionUrl = "https://app.notion.com/p/3b5062d2c59e8000aa44c5b8f15ace62";
 export const booking = (name: string, checkin: string, checkout: string) =>
   "https://www.booking.com/searchresults.ko.html?" + new URLSearchParams({ss: name, checkin, checkout, group_adults: "2", no_rooms: "1", group_children: "0", selected_currency: "KRW"}).toString();
@@ -22,7 +22,7 @@ export const itinerary = [
   {date:"10.29", weekday:"목", region:"ubud", kind:"이동", title:"길리에서 우붓으로", am:"오전 보트 → 파당바이 항구", pm:"예약 차량으로 우붓 · 약 1.5–2.5시간", night:"Sri Wedari 숙소 입실 · 근처 저녁·생수 구입", note:"폰테 체크아웃 후 항구 이동. 전체 5–7시간 계획. 호스트에게 정확한 지도 핀·차량 진입·열쇠 수령을 확인하고, 도착일 식당·스파는 예약하지 않기."},
   {date:"10.30", weekday:"금", region:"ubud", kind:"FULL", title:"논 전망과 긴 휴식", am:"크레타야 우붓 · 논 전망과 수영", pm:"Sri Wedari 복귀 · Mahayoga Spa 후보 · 숙소 휴식", night:"Keenandra 또는 숙소 가까운 식당에서 저녁", note:"크레타야·뜨갈랄랑은 북쪽 외출로 묶기. Mahayoga·Keenandra는 Sri Wedari No.777: 숙소 핀과 비교 후 선택, 멀면 호스트 추천 스파로 대체."},
   {date:"10.31", weekday:"토", region:"ubud", kind:"FULL", title:"몽키포레스트와 시내 산책", am:"09:00 몽키포레스트", pm:"Pison 점심 → 우붓 시장·왕궁 주변 → Tukies", night:"Hujan Locale 저녁 후보 → Sri Wedari 숙소 복귀", note:"몽키포레스트에서 시내로 북상하는 하루. Hujan은 Sri Wedari No.5, 예약 권장. 사라스와티 의식일이라 운영·교통 확인, 숙소까지 도보 가능 여부는 핀 확인 후 결정."},
-  {date:"11.01", weekday:"일", region:"south", kind:"이동", title:"우붓에서 웅아산 호텔로", am:"조식 · 10:30 전후 체크아웃", pm:"차량 약 2.5–4시간 · 포 포인츠 웅아산 15:00 체크인", night:"호텔 수영장 휴식 · Evolution Restaurant 저녁", note:"15:00 체크인 · 디럭스 킹룸·코트야드 뷰. 도착일은 해변 왕복 없이 호텔에서 휴식, 다음 두 아침은 포함된 조식 이용."},
+  {date:"11.01", weekday:"일", region:"south", kind:"이동", title:"웅아산 체크인, 말리니 선셋", am:"조식 · 10:30 전후 체크아웃", pm:"차량 약 2.5–4시간 · 포 포인츠 웅아산 15:00 체크인", night:"17:00 말리니 선셋 식사 추천 · 왕복 차량 이용", note:"말리니는 예약 전 추천 일정. 15시 체크인 후 16시 전후 출발을 기사와 조율하고 지연 시 식당에 연락. 케착은 다음 날, 해변 투어는 추가하지 않기. 예약 불가·피곤한 날은 호텔 Evolution으로."},
   {date:"11.02", weekday:"월", region:"south", kind:"FULL", title:"바다와 케착 공연", am:"포함된 호텔 조식 · 수영장 휴식", pm:"호텔에서 점심·샤워 → 차량으로 울루와뚜 사원 · 16:00 도착 목표", night:"18:00 케착 공연 후보 · 가까운 곳에서 저녁", note:"웅아산→사원은 계획용 편도 45–75분 여유. 해변이 꼭 좋다면 수영장 대신 멜라스티 오전 방문, 호텔 복귀·샤워 후 사원으로. 두 해변을 한날에 묶지 않기."},
   {date:"11.03", weekday:"화", region:"south", kind:"귀국", title:"마지막 수영, 23:05 비행", am:"포함된 호텔 조식 · 수영 · 12:00 체크아웃", pm:"호텔 짐 보관 사전 문의 · Escape Spa 또는 카페 · 16:30–17:00 이른 저녁", night:"18:00–18:30 차량 출발 → 20:00 DPS → 23:05 7C5304", note:"12시 이후 객실 사용·수영·샤워는 자동 포함되지 않음. 레이트 체크아웃·데이유즈는 호텔 확인 후 추가. 인천 도착 11/4 07:10."},
 ];
@@ -62,8 +62,16 @@ export const lodgingTotalKRW = stays.reduce((sum, stay) => sum + stay.totalKRW, 
 export const confirmedLodgingKRW = stays.filter(stay => stay.confirmed).reduce((sum, stay) => sum + stay.totalKRW, 0);
 export const formatKRW = (amount: number) => amount.toLocaleString("ko-KR") + "원";
 
+export const malini = {
+  name:"말리니 · Malini Uluwatu", date:"2026.11.01", time:"17:00", guests:2,
+  checkedAt:"2026.09.30", status:"조회 시 예약 가능 · 미예약",
+  bookingUrl:"https://www.dishcult.com/restaurant/maliniuluwatu", officialUrl:"https://linktr.ee/malini_uluwatu",
+  note:"2인·17:00 Standard reservation 선택 가능, 20:00 테이블 반환 안내. 실시간 잔여석은 바뀔 수 있으며 절벽 앞·창가 좌석은 별도 확인. 실제 예약·결제는 하지 않음.",
+};
+
 export const places = [
-  {region:"south",name:"Evolution Restaurant and Bar",category:"호텔 내 · 조식·식사",status:"공식 확인 · 06:30–23:00",note:"포 포인츠 웅아산 루프톱 식당. 11/1 저녁, 11/2·3 포함 조식 이용. 운영시간과 조식 제공시간은 다르므로 체크인 때 확인.",href:"https://www.marriott.com/en-us/hotels/dpsfg-four-points-bali-ungasan/dining/"},
+  {region:"south",name:malini.name,category:"11/1 · 선셋 식사",status:malini.status,note:"Jalan Raya Malini No.151, Pecatu. 2인 17:00 추천. 일반 테이블과 절벽 앞 좌석은 다를 수 있어 좌석·최소 주문·보증금·취소 조건 확인. 케착은 11/2로 분리.",href:malini.bookingUrl},
+  {region:"south",name:"Evolution Restaurant and Bar",category:"호텔 내 · 조식·식사",status:"공식 확인 · 06:30–23:00",note:"포 포인츠 웅아산 루프톱 식당. 11/1 저녁 대안, 11/2·3 포함 조식 이용. 운영시간과 조식 제공시간은 다르므로 체크인 때 확인.",href:"https://www.marriott.com/en-us/hotels/dpsfg-four-points-bali-ungasan/dining/"},
   {region:"south",name:"Escape Spa · 호텔 수영장",category:"호텔 내 · 휴식",status:"공식 시설 확인",note:"11/2 오전은 수영장 중심. 11/3 스파는 사전 예약 후보이며 체크아웃 후 짐 보관·샤워·시설 이용과 별도 요금을 확인.",href:"https://www.marriott.com/en-us/hotels/dpsfg-four-points-bali-ungasan/experiences/"},
   {region:"south",name:"멜라스티 해변",category:"차량 외출 · 선택",status:"11/2 오전 대안",note:"호텔 수영장 대신 바다를 원할 때만. 차량으로 왕복하고 호텔에서 샤워 후 사원으로 이동. 해변 운영·조수와 귀환 차량은 당일 확인.",href:mapSearch("Melasti Beach Ungasan")},
 
@@ -78,7 +86,6 @@ export const places = [
   {region:"west",name:"FINNS Beach Club",category:"비치클럽",status:"11:00–24:00",note:"성인 전용, 무료 입장 구역 운영. 데이베드 최소 주문은 별도. 10/23 오후.",href:"https://finnsbeachclub.com/"},
   {region:"west",name:"KU DE TA",category:"선셋 · 식사",status:"공식 예약 확인",note:"10/24 스미냑 선셋 후보. 좌석 종류·이벤트별 예약 조건 확인.",href:"https://kudeta.com/"},
   {region:"west",name:"초보 서핑",category:"액티비티",status:"방문 후보",note:"10/23 오전, 강사와 조수·파도에 맞춰 장소 결정. 서핑 강습은 비치클럽과 별도로 예약.",href:"https://www.google.com/maps/search/?api=1&query=surf+lessons+Canggu"},
-  {region:"west",name:"Laci",category:"식사",status:"지점 확인 필요",note:"정확한 상호·위치를 확인한 뒤 식사에 추가.",href:"https://blog.naver.com/andy317/223420531914"},
   {region:"west",name:"데우스 · 스미냑 쇼핑",category:"쇼핑",status:"방문 후보",note:"티셔츠·작은 기념품. 10/24에 묶고 꾸따 쇼핑몰은 비 오는 날 대안.",href:"https://www.google.com/maps/search/?api=1&query=Deus+Ex+Machina+Canggu"},
   {region:"gili",name:"3섬 스노클링 · 주나투어",category:"액티비티",status:"미예약",note:"10/26 오전 우선. 출발섬·집결지·보트·가이드·구명조끼·사진 포함을 업체에 확인.",href:"https://blog.naver.com/cat_veling/224122697812"},
   {region:"gili",name:"Regina Pizzeria",category:"피자",status:"방문 후보",note:"길리 트라왕안 식당. 10/25 도착 후 마을 산책과 함께.",href:"https://maps.app.goo.gl/5CKBb34o4TzGaa4TA"},
@@ -90,13 +97,9 @@ export const places = [
   {region:"ubud",name:"Cretya Ubud",category:"논 전망 · 수영",status:"07:00–21:00 · 18+",note:"공식 FDC Rp220k/인, 첫 음료 포함. 데이베드·이벤트 별도 조건. 10/30 오전.",href:"https://cretyaubud.com/en/cretya-ubud"},
   {region:"ubud",name:"Monkey Forest",category:"관광",status:"09:00–18:00 · Rp130k",note:"최종 입장 17:00. 10/31 09:00 방문, 음식과 소지품은 가방에.",href:"https://monkeyforestubud.com/visit/"},
   {region:"ubud",name:"Pison Ubud",category:"식사 · 카페",status:"07:00–23:00",note:"하노만 거리의 논 전망 식당, 10/31 몽키포레스트 후 점심에.",href:"https://pisonindonesia.com/pison-ubud/"},
-  {region:"ubud",name:"푸트리 스파",category:"마사지",status:"지점 확인 필요",note:"그린타라·옌즈와 함께 비교해 하루 한 곳만. 숙소와 가까운 지점 우선.",href:"https://maps.app.goo.gl/CjN1e9gUPUNjgiYZ9"},
   {region:"ubud",name:"투키즈 코코넛",category:"디저트",status:"방문 후보",note:"시내 산책 뒤 코코넛 아이스크림. 10/30 또는 10/31에.",href:"https://maps.app.goo.gl/AdK7FnMt11j4cDaU9"},
   {region:"ubud",name:"와룽 부 루스",category:"로컬 식사",status:"방문 후보",note:"폭립 식사 후보. 가라시·트로피칼 뷰도 대안.",href:"https://maps.app.goo.gl/AT3jyH4U2RYWbDDf6"},
-  {region:"south",name:"Sundays Beach Club",category:"해변",status:"07:30–22:00 · Rp800k",note:"Rp500k 식음 크레딧 포함, 일반 입장은 선착순. 선택 일정: 11/2 리조트 휴식 대신 오전에만 방문.",href:"https://www.sundaysbeachclub.com/daily-beach-pass/"},
   {region:"south",name:"Uluwatu Temple · Kecak",category:"사원 · 공연",status:"18:00 회차 후보",note:"11/2 16:00 전후 사원 도착. 공연과 사원 입장은 별도, 예약 회차·요금 재확인.",href:"https://uluwatutemple.com/"},
-  {region:"south",name:"Mana Uluwatu",category:"식사",status:"예약 확인",note:"웅아산 숙소에서는 별도 차량 이동이 필요한 선택지. 11/1 기본 저녁은 호텔 Evolution으로, 외출 시 이동·귀환 차량 확인.",href:"https://uluwatusurfvillas.com/restaurant/"},
-  {region:"south",name:"키식 · 혼젠",category:"짐바란 식사",status:"방문 후보",note:"아야나 내 식사 후보. 11/3 공항 가는 길에 넣는다면 이른 저녁 운영과 예약 시간을 먼저 확인.",href:"https://maps.app.goo.gl/zRFxR6LmtrSnHbLS8"},
 ];
 
 export const transfers = [
@@ -107,21 +110,30 @@ export const transfers = [
   {date:"11.03",route:"포 포인츠 웅아산 → DPS",time:"18:00–18:30 출발 · 20:00 도착 목표",note:"23:05 7C5304. 짐 보관·체크아웃 후 샤워·시설 이용은 호텔 확인. 웅아산 출발 차량을 미리 예약하고 교통에 따라 더 일찍 출발.",href:"https://www.jejuair.net/en/prepare/flight/viewScheduleInfo.do"},
 ];
 
-export const preparation = [
-  {id:"passport",title:"여권과 항공권 확인",detail:"여권 유효기간 6개월 이상 · 영문명 일치 · 예약 원본은 노션",when:"지금"},
-  {id:"stay-details",title:"숙소 예약 조건·주소 확인",detail:"The Jangkar 자정 이후 입실 · 우붓 정확한 핀·시설 · 폰테 객실 조건 · 포 포인츠 조식 시간·체크아웃 후 짐 보관",when:"출발 전"},
-  {id:"late-arrival",title:"첫날 야간 체크인 연락",detail:"The Jangkar 체크인 마감 24시 · 10/22 새벽 입실 사전 승인",when:"예약할 때"},
-  {id:"boat",title:"길리 보트 두 구간 예약",detail:"10/25 길리 T행 · 10/29 파당바이행 · 픽업과 항구세 확인",when:"미리"},
-  {id:"dinner",title:"투어·스파·케착 예약",detail:"10/26 스노클링 · 10/30 스파 · 11/2 케착",when:"미리"},
-  {id:"visa",title:"e-VOA B1",detail:"공식 비자 수수료 Rp500k/인 · 30일 체류",when:"출발 전"},
-  {id:"levy",title:"발리 관광세",detail:"Rp150k/인 · 납부 QR 저장 · 길리 복귀 때도 보관",when:"출발 전"},
-  {id:"arrival",title:"All Indonesia 작성",detail:"입국 3일 전인 10/18부터 · QR 오프라인 저장",when:"10.18부터"},
-  {id:"weather",title:"보트·날씨 재확인",detail:"출항 48–72시간 전과 당일 · BMKG와 보트사 안내",when:"출항 전"},
-  {id:"bags",title:"짐과 휴대폰 준비",detail:"여행자보험 · eSIM · 방수팩 · 멀미약 · WhatsApp·Gojek",when:"짐 쌀 때"},
-  {id:"flight",title:"귀국 준비",detail:"11/3 23:05 출발 · 11/4 07:10 도착 · 공항차와 데이유즈",when:"귀국 전"},
+export type PreparationItem = {id:string; title:string; detail:string; when:string; group:"필수 준비"|"사전 예약"|"현지 재확인"; important:boolean; href?:string};
+export const preparation: PreparationItem[] = [
+  {id:"passport",title:"여권·항공권 대조",detail:"입국일 기준 여권 유효기간 6개월 이상 · 두 사람 영문명·편명·수하물 확인. 11/3 출발, 인천 도착은 11/4.",when:"지금",group:"필수 준비",important:true,href:"https://www.jejuair.net/en/prepare/flight/viewScheduleInfo.do"},
+  {id:"late-arrival",title:"The Jangkar 새벽 입실 승인",detail:"21:45 착륙 후 자정이 넘을 수 있음. 10/21 객실 예약 유지, 10/22 새벽 입실 방법·직원 연락처를 숙소에서 서면 확인.",when:"10.07까지 권장",group:"필수 준비",important:true},
+  {id:"insurance",title:"여행자보험·보장 범위 확인",detail:"여행 전 기간과 스노클링·서핑 보장·면책 여부 확인. 증권과 긴급 연락처를 두 사람 휴대폰에 저장.",when:"출국 전",group:"필수 준비",important:true},
+  {id:"visa",title:"비자 준비 · e-VOA B1 권장",detail:"대상 국적·여권 조건 확인 후 공식 신청. B1 Rp500k/인·30일. 발급본의 입국 가능 기간과 영문명 확인. 도착비자 이용 시 현장 발급 시간 확보.",when:"출국 전",group:"필수 준비",important:true,href:"https://evisa.imigrasi.go.id/"},
+  {id:"levy",title:"발리 관광세 납부",detail:"Rp150k/인 · 공식 Love Bali에서 납부 후 QR 저장. 길리에서 발리로 돌아올 때도 영수증 보관.",when:"출국 전",group:"필수 준비",important:true,href:"https://lovebali.baliprov.go.id/"},
+  {id:"arrival",title:"All Indonesia · 무료 입국신고",detail:"공식 안내는 입국 3일 전부터. 10/18에 확인하고 입국일 선택이 아직 안 되면 10/19 재시도. 탑승 전 두 사람 신고·QR 저장 완료.",when:"10.18–20",group:"필수 준비",important:true,href:"https://allindonesia.imigrasi.go.id/"},
+  {id:"boat",title:"길리 왕복 보트·차량 연결",detail:"10/25 세랑안→길리 T, 10/29 길리 T→파당바이 우선 비교. 짱구 픽업·우붓 드롭 범위, 수하물·항구세·취소 규정과 실제 출항 시각 확인.",when:"10.07까지 권장",group:"사전 예약",important:true,href:"https://bluewater-express.com/schedules/"},
+  {id:"airport-car",title:"공항 픽업·귀국 차량",detail:"10/21 DPS→The Jangkar는 입국 지연 대기 조건 확인. 11/3 웅아산 18:00–18:30 출발·DPS 20:00 도착 목표, 교통에 따라 앞당기기.",when:"10.07까지 권장",group:"사전 예약",important:true},
+  {id:"malini",title:"말리니 · 11/1 2인 17:00",detail:"9/30 조회 시 일반 예약 가능·아직 미예약. 절벽 앞 좌석·최소 주문·보증금·취소 조건 확인 후 예약 확정서 보관.",when:"우선 예약",group:"사전 예약",important:true,href:malini.bookingUrl},
+  {id:"snorkeling",title:"길리 스노클링 · 10/26",detail:"트라왕안 출발·집결지·가이드·구명조끼·장비 확인. 악천후 시 10/28로 변경 가능한 조건 우선.",when:"출국 전 권장",group:"사전 예약",important:false},
+  {id:"kecak",title:"케착 공연 · 11/2",detail:"18:00 회차 우선. 공연·사원 입장권 구분, 바우처·취소 조건 확인. 16:00 사원 도착 목표로 왕복 기사 예약.",when:"출국 전 권장",group:"사전 예약",important:false,href:"https://uluwatutemple.com/"},
+  {id:"optional-bookings",title:"선택 예약 · 이용할 것만",detail:"10/23 서핑·FINNS 좌석, 10/24 KU DE TA, 10/30 Cretya·스파, 10/31 Hujan Locale. 무료 입장과 지정석 예약은 구분하고 선결제를 겹치지 않기.",when:"10.14까지 선택",group:"사전 예약",important:false},
+  {id:"stay-logistics",title:"숙소 핀·체크아웃 후 편의",detail:"우붓 호스트에게 정확한 지도 핀·차량 진입·열쇠 수령 확인. 폰테 항구↔숙소 짐 이동, 포 포인츠 11/3 12시 이후 짐 보관·샤워·추가 요금 문의.",when:"출국 전",group:"필수 준비",important:true},
+  {id:"phone-money",title:"통신·결제·오프라인 서류",detail:"eSIM/로밍·WhatsApp·Gojek 준비, 해외 카드 결제와 소액 루피아 확인. 여권 사본·항공권·숙소·보트 바우처를 오프라인 저장.",when:"10.20까지",group:"필수 준비",important:false},
+  {id:"weather",title:"보트·해상 날씨 재확인",detail:"10/25·29 출항 48–72시간 전과 당일 보트사·BMKG 확인. 항구 도착은 출항 60분 전 목표, 최종 마감은 바우처 기준.",when:"10.22부터",group:"현지 재확인",important:true,href:"https://maritim.bmkg.go.id/"},
+  {id:"south-reconfirm",title:"울루와뚜 예약·공항차 재확인",detail:"말리니 예약 확정서·좌석 조건, 케착 회차, 11/3 짐 보관·공항 픽업 시간 확인. 당일에는 장거리 관광 추가하지 않기.",when:"10.31–11.02",group:"현지 재확인",important:false},
 ];
 
 export const sources = [
+  {label:"말리니 공식 안내",url:malini.officialUrl},
+  {label:"말리니 예약 · 09.30 조회",url:malini.bookingUrl},
+  {label:"All Indonesia 공식 FAQ",url:"https://kemlu.go.id/files/publikasi/additional_file/175648407968b1d1ef0a46b_FAQ_All_Indonesia__Trilingual_.pdf"},
   {label:"The Jangkar 시설·이용수칙",url:"https://www.booking.com/hotel/id/the-jangkar-canggu-guesthouse.ko.html"},
   {label:"I Am Vegan Babe",url:"https://iamveganbabe.com/"},
   {label:"La Baracca 지점 안내",url:"https://linktr.ee/labaraccabali"},
@@ -134,7 +146,6 @@ export const sources = [
   {label:"FINNS 운영",url:"https://finnsbeachclub.com/"},
   {label:"크레타야 요금",url:"https://cretyaubud.com/en/cretya-ubud"},
   {label:"몽키포레스트 요금",url:"https://monkeyforestubud.com/visit/"},
-  {label:"Sundays 패스",url:"https://www.sundaysbeachclub.com/daily-beach-pass/"},
   {label:"e-VOA 안내",url:"https://ngurahrai.imigrasi.go.id/layanan-wna/"},
   {label:"발리 관광세",url:"https://lovebali.baliprov.go.id/faq"},
   {label:"All Indonesia 안내",url:"https://bengkalis.imigrasi.go.id/2025/08/28/pemerintah-rilis-all-indonesia-integrated-passenger-declaration-system/"},

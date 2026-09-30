@@ -52,6 +52,10 @@ test("renders the complete new notebook with honest booking and sync status",asy
   assert.match(html,/1,264,251/);
   assert.match(html,/확정 숙박 계획/);
   assert.match(html,/포 포인츠 바이 쉐라톤 발리, 웅아산/);
+  assert.match(html,/말리니 선셋 식사/);
+  assert.match(html,/조회 시 예약 가능 · 미예약/);
+  assert.match(html,/출국 전 중요/);
+  for(const group of ["필수 준비","사전 예약","현지 재확인"]) assert.ok(html.includes(group));
   assert.doesNotMatch(html,/래디슨|radisson|1,460,563|400,000/i);
   assert.doesNotMatch(html,/날짜 넣어 검색|숙소 선택 후 확정|Renaissance|PinkCoco/);
   assert.match(html,/자동으로 바뀌지는 않습니다/);

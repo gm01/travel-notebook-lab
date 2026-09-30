@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { stops, itinerary, stays, places, transfers, preparation, sources, lodgingTotalKRW, formatKRW, mapSearch, notionUrl } from "./trip-data";
+import { stops, itinerary, stays, places, transfers, preparation, sources, lodgingTotalKRW, formatKRW, mapSearch, notionUrl, malini } from "./trip-data";
 
 function Link({href, children, className = ""}: {href: string; children: ReactNode; className?: string}) {
-  return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span aria-hidden="true"> ↗</span></a>;
+  return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
 }
 function Heading({no, title, note}: {no:string; title:string; note?:string}) {
   return <div className="section-heading"><div><span className="section-no">{no}</span><h2>{title}</h2></div>{note && <p>{note}</p>}</div>;
@@ -26,13 +26,20 @@ function Checklist() {
     try { window.localStorage.setItem("bali-between-us-checklist",JSON.stringify(next)); } catch { /* Keep working in memory. */ }
   }
   return <div className="checklist">
-    <div className="checklist-top"><h3>준비 체크리스트</h3><span>{checked.length} / {preparation.length}</span></div>
+    <div className="checklist-top"><h3>예약·준비 체크리스트</h3><span>{checked.length} / {preparation.length}</span></div>
     <progress value={checked.length} max={preparation.length} aria-label="여행 준비 완료 항목" />
     <p className="muted small">이 기기에 저장됩니다. 노션의 체크 상태와는 별개입니다.</p>
-    {preparation.map(item => <label key={item.id} className={checked.includes(item.id) ? "check checked" : "check"}>
-      <input type="checkbox" checked={checked.includes(item.id)} onChange={() => toggle(item.id)} />
-      <span><strong>{item.title}</strong><small>{item.detail}</small></span><em>{item.when}</em>
-    </label>)}
+    <p className="check-help">중요 표시부터 확인하세요. 기한은 개인 준비 권장일이며, 체크는 예약 확정 여부와 별개입니다.</p>
+    {(["필수 준비", "사전 예약", "현지 재확인"] as const).map(group => <fieldset className="check-group" key={group}>
+      <legend>{group}</legend>
+      {preparation.filter(item => item.group === group).map(item => <div className="check-item" key={item.id}>
+        <label className={"check" + (checked.includes(item.id) ? " checked" : "")}>
+          <input type="checkbox" checked={checked.includes(item.id)} onChange={() => toggle(item.id)} />
+          <span>{item.important && <b className="priority-tag">중요</b>}<strong>{item.title}</strong><small>{item.detail}</small></span><em>{item.when}</em>
+        </label>
+        {item.href && <Link className="check-link" href={item.href}>공식 안내·예약</Link>}
+      </div>)}
+    </fieldset>)}
   </div>;
 }
 export default function Home() {
@@ -51,6 +58,11 @@ export default function Home() {
         </div>
         <figure className="intro-photo"><img src="./images/ubud-rice.jpg" alt="우붓의 계단식 논" width="640" height="360" /><figcaption>UBUD, BALI</figcaption></figure>
       </section>
+      <aside className="departure-priority" aria-label="출국 전 중요 준비">
+        <div><span className="priority-tag">출국 전 중요</span><h2>먼저 끝내둘 것</h2></div>
+        <ul><li><a href="#checklist">여권·비자·관광세 확인</a></li><li><a href="#checklist">새벽 체크인 승인·길리 보트·공항차</a></li><li><a href="#checklist">10/18부터 입국신고, 탑승 전 QR 저장</a></li></ul>
+        <a href="#checklist" className="notion-button">예약·준비 확인</a>
+      </aside>
       <div className="route-overview" aria-label="확정 숙박 배분">
         {stops.map((stop,i) => <a className={"route-stop " + stop.accent} key={stop.id} href={"#days-"+stop.id}>
           <div><span className="stop-index">0{i+1}</span><span className="night-count">{stop.nights}<small>박</small></span></div>
@@ -59,7 +71,7 @@ export default function Home() {
       </div>
       <div className="route-caption"><span>4 + 4 + 3 + 2 = 13박</span><span>숙소 4곳 선택 완료 · 식당·투어는 후보</span></div>
       <section className="section" id="route">
-        <Heading no="01" title="날짜별 일정" note="이동일은 여유롭게. FULL인 날은 메인 일정 한두 개만." />
+        <Heading no="01" title="날짜별 추천 일정" note="숙소는 확정, 식당·투어는 예약 전 추천안입니다. 하루 메인 일정은 한두 개만." />
         {stops.map((stop,index) => <div className={"itinerary-group "+stop.accent} id={"days-"+stop.id} key={stop.id}>
           <div className="chapter"><span>0{index+1}</span><div><p className="eyebrow">{stop.en}</p><h3>{stop.name}</h3><p>{stop.note}</p></div><span className="chapter-dates">{stop.dates}<small>{stop.nights}박 · {stop.full}</small></span></div>
           <div className="day-list">{itinerary.filter(day=>day.region===stop.id).map(day=><article className="day" key={day.date}>
@@ -95,11 +107,12 @@ export default function Home() {
         {stops.map(stop=><div className="places-group" key={stop.id}><div className="group-title"><h3>{stop.name}</h3><span>{stop.dates}</span></div><div className="places-grid">
           {places.filter(place=>place.region===stop.id).map(place=><article className="place" key={place.name}><div className="place-meta"><span>{place.category}</span><small>{place.status}</small></div><h4>{place.name}</h4><p>{place.note}</p><Link href={place.href}>상세 · 지도</Link></article>)}
         </div></div>)}
-        <div className="notice"><strong>추가 일정 선택 시</strong><p>누사페니다·로비나·렘푸양·사누르는 별도 이동 시간을 확보하세요. 바투르산과 AKASA는 10/31 오전을 대체하는 선택지입니다. 길리에서는 섬 사이를 수영하지 말고, 바다에 들어갈 때 현지 가이드와 조류를 확인하세요.</p></div>
+        <div className="notice"><strong>바다 일정은 날씨 우선</strong><p>10/28은 스노클링 예비일로 비워둡니다. 길리에서는 섬 사이를 수영하지 말고, 입수 전 현지 가이드와 조류·보트 통로를 확인하세요.</p></div>
       </section>
       <section className="section" id="checklist">
-        <Heading no="05" title="출발 전 준비" note="여권·입국 서류·예약 조건 확인" />
+        <Heading no="05" title="예약과 출국 준비" note="중요 항목 우선 · 확정서는 별도 보관 · 모든 시각은 현지 기준" />
         <div className="planning-grid"><Checklist /><div className="side-stack">
+          <article className="small-card malini-card"><p className="eyebrow">PRIORITY RESERVATION</p><h3>말리니 선셋 식사</h3><p className="reservation-slot">11.01 일 · 17:00 · 2인</p><span className="availability-status">{malini.status}</span><p>{malini.note}</p><small>{malini.checkedAt} 예약 화면 기준 · 최소 주문·보증금·취소 규정은 확정 전 확인</small><div className="card-links"><Link href={malini.bookingUrl}>예약 가능 시간 보기</Link><Link href={malini.officialUrl}>공식 문의·메뉴</Link></div></article>
           <article className="flight-card"><p className="eyebrow">FLIGHTS</p><div className="flight"><span>10.21 수 · 7C5303</span><div><strong>ICN<small>15:40</small></strong><span>→</span><strong>DPS<small>21:45</small></strong></div></div><div className="flight"><span>11.03 화 · 7C5304</span><div><strong>DPS<small>23:05</small></strong><span>→</span><strong>ICN<small>07:10 <em>+1일</em></small></strong></div></div><p>인천 도착 11월 4일 수요일<br />모든 시각은 현지 기준 · 발리는 한국보다 1시간 느립니다.</p><Link href="https://www.jejuair.net/en/prepare/flight/viewScheduleInfo.do">항공사 일정 재확인</Link></article>
           <article className="small-card"><h3>입국 서류</h3><p><Link href="https://evisa.imigrasi.go.id/">e-VOA B1</Link> · Rp500k/인 · 30일</p><p><Link href="https://lovebali.baliprov.go.id/">발리 관광세</Link> · Rp150k/인</p><p><Link href="https://allindonesia.imigrasi.go.id/">All Indonesia</Link> · 10/18부터 작성</p><small>공식 정보 09.07 확인. 출발 전 신청 화면에서 조건을 재확인하세요.</small></article>
           <article className="small-card"><h3>달력에 남길 메모</h3><p><b>10.31 · 사라스와티</b><br />우붓의 사원·업장 운영과 교통 확인.</p><p><b>우붓 축제와 겹치지 않음</b><br />2026 축제는 10/21–25, 우붓 체류는 10/29부터.</p></article>
